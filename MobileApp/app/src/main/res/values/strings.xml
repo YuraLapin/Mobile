@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AlarmMobileApp</string>
+    <string name="SetAlarm">Установить сигнализацию</string>
 </resources>

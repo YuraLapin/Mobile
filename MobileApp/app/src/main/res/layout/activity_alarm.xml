@@ -58,7 +58,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/upper_bg"
         android:layout_above="@id/addButton"
-        android:layout_marginHorizontal="20dp"
+        android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="20dp"/>
 
 </RelativeLayout>

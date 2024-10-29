@@ -40,16 +40,6 @@
 
 
 
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/upper_bg"
-
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="80dp"/>
-
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addButton"
@@ -61,5 +51,14 @@
         android:layout_marginBottom="15dp"
         android:contentDescription="@string/app_name"
         android:src="@android:drawable/ic_input_add" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/PeriodRecycleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/upper_bg"
+        android:layout_above="@id/addButton"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"/>
 
 </RelativeLayout>

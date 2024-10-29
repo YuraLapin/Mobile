@@ -3,7 +3,6 @@ package com.example.alarmmobileapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -11,11 +10,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.alarmmobileapp.classes.DayOfWeek;
+import com.example.alarmmobileapp.classes.Period;
+import com.example.alarmmobileapp.classes.PeriodAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AlarmActivity extends AppCompatActivity {
 
-    private String[] itemsArr = new String[]{};
-    private ListView listView;
+
+    ArrayList<Period> periods = new ArrayList<>();
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,19 +36,27 @@ public class AlarmActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        listView = findViewById(R.id.listView);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArr);
-        listView.setAdapter(adapter);
-
-
-
+        setPeriodData();
+        recyclerView = findViewById(R.id.PeriodRecycleView);
+        PeriodAdapter adapter = new PeriodAdapter(this,periods);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public void ReturnToMainActivity(View v){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private void setPeriodData(){
+        List<DayOfWeek>days = new ArrayList<DayOfWeek>();
+        days.add(DayOfWeek.MONDAY);
+        days.add(DayOfWeek.FRIDAY);
+        periods.add(new Period("ABC","19:20","20:00", days, true));
+        periods.add(new Period("ABasdC","1:20","3:00", days, true));
+        periods.add(new Period("sda","19:20","20:00", days, false));
+        periods.add(new Period("qwea","1:20","10:00", days, true));
+        periods.add(new Period("gaq","9:20","20:00", days, false));
     }
 
 }

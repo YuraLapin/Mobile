@@ -11,18 +11,30 @@
         android:id="@+id/upper_bg"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="#46BEE6">
+        android:background="@color/yellow"
+        >
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="@font/montserrat_bold"
+            android:minHeight="48dp"
+            android:onClick="ReturnToMainActivity"
             android:text="Back"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            />
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Current alarms"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
@@ -40,32 +52,14 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
+        android:id="@+id/addButton"
+        android:backgroundTint="@color/yellow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:contentDescription="@string/app_name"
+        android:src="@android:drawable/ic_input_add" />
 
-
-<!--    <LinearLayout-->
-<!--        android:id="@+id/bottom_menu"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:background="#46BEE6"-->
-<!--        android:layout_marginBottom="50dp"-->
-<!--        android:orientation="horizontal">-->
-
-<!--&lt;!&ndash;        <Button&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_height="match_parent"&ndash;&gt;-->
-<!--&lt;!&ndash;            &ndash;&gt;-->
-<!--&lt;!&ndash;            android:backgroundTint="@color/purple_700"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:onClick="goHome"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:text="Main" />&ndash;&gt;-->
-<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            />-->
-<!--            -->
-
-<!--    </LinearLayout>-->
 </RelativeLayout>

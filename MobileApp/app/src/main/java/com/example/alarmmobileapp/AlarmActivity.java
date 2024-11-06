@@ -16,11 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.alarmmobileapp.classes.DayOfWeek;
 import com.example.alarmmobileapp.classes.Period;
 import com.example.alarmmobileapp.classes.PeriodAdapter;
+import com.example.alarmmobileapp.interfaces.RecyclerViewInerface;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlarmActivity extends AppCompatActivity {
+public class AlarmActivity extends AppCompatActivity implements RecyclerViewInerface {
 
 
     ArrayList<Period> periods = new ArrayList<>();
@@ -38,7 +39,7 @@ public class AlarmActivity extends AppCompatActivity {
         });
         setPeriodData();
         recyclerView = findViewById(R.id.PeriodRecycleView);
-        PeriodAdapter adapter = new PeriodAdapter(this,periods);
+        PeriodAdapter adapter = new PeriodAdapter(this,periods,this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -59,4 +60,10 @@ public class AlarmActivity extends AppCompatActivity {
         periods.add(new Period("gaq","9:20","20:00", days, false));
     }
 
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(AlarmActivity.this, PeriodItemActivity.class);
+        
+        startActivity(intent);
+    }
 }

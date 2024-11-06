@@ -1,9 +1,10 @@
 package com.example.alarmmobileapp.classes;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Period {
+public class Period implements Serializable {
 
     private String name;
     private String startOfPeriod;

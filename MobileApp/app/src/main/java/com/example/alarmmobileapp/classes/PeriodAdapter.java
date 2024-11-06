@@ -11,7 +11,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.alarmmobileapp.R;
-import com.example.alarmmobileapp.interfaces.RecyclerViewInerface;
+import com.example.alarmmobileapp.interfaces.RecyclerViewInterface;
 
 import java.util.List;
 
@@ -19,11 +19,11 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.PeriodView
 
     List<Period> periods;
     private final LayoutInflater inflater;
-    private final RecyclerViewInerface recyclerViewInerface;
+    private final RecyclerViewInterface recyclerViewInterface;
 
-    public PeriodAdapter(Context context, List<Period> periods, RecyclerViewInerface recyclerViewInerface){
+    public PeriodAdapter(Context context, List<Period> periods, RecyclerViewInterface recyclerViewInterface){
         this.periods = periods;
-        this.recyclerViewInerface = recyclerViewInerface;
+        this.recyclerViewInterface = recyclerViewInterface;
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -31,7 +31,7 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.PeriodView
     @Override
     public PeriodAdapter.PeriodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.list_item, parent, false);
-        return new PeriodViewHolder(view, recyclerViewInerface);
+        return new PeriodViewHolder(view, recyclerViewInterface);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.PeriodView
         TextView name,start,end;
         SwitchCompat enabled;
 
-        public PeriodViewHolder(@NonNull View itemView, RecyclerViewInerface recyclerViewInerface) {
+        public PeriodViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             name = itemView.findViewById(R.id.name);
             start = itemView.findViewById(R.id.start);
@@ -63,12 +63,12 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.PeriodView
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(recyclerViewInerface != null){
+                    if(recyclerViewInterface != null){
                         int position = getAdapterPosition();
 
                         if(position != RecyclerView.NO_POSITION)
                         {
-                            recyclerViewInerface.onItemClick(position);
+                            recyclerViewInterface.onItemClick(position);
                         }
                     }
                 }

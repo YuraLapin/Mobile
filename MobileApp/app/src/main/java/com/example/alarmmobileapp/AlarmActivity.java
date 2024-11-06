@@ -3,7 +3,6 @@ package com.example.alarmmobileapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,12 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.alarmmobileapp.classes.DayOfWeek;
 import com.example.alarmmobileapp.classes.Period;
 import com.example.alarmmobileapp.classes.PeriodAdapter;
-import com.example.alarmmobileapp.interfaces.RecyclerViewInerface;
+import com.example.alarmmobileapp.interfaces.RecyclerViewInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlarmActivity extends AppCompatActivity implements RecyclerViewInerface {
+public class AlarmActivity extends AppCompatActivity implements RecyclerViewInterface {
 
 
     ArrayList<Period> periods = new ArrayList<>();
@@ -63,7 +62,9 @@ public class AlarmActivity extends AppCompatActivity implements RecyclerViewIner
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(AlarmActivity.this, PeriodItemActivity.class);
-        
+
+        intent.putExtra("PERIOD",periods.get(position));
+
         startActivity(intent);
     }
 }

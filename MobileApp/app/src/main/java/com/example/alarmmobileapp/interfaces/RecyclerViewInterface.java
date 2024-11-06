@@ -1,7 +1,5 @@
 package com.example.alarmmobileapp.interfaces;
 
-public interface RecyclerViewInerface {
-
+public interface RecyclerViewInterface {
     void onItemClick(int position);
-
 }

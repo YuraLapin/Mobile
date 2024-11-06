@@ -1,12 +1,15 @@
 package com.example.alarmmobileapp;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.alarmmobileapp.classes.Period;
 
 public class PeriodItemActivity extends AppCompatActivity {
 
@@ -20,7 +23,23 @@ public class PeriodItemActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
+
+        Period period = (Period)getIntent().getSerializableExtra("PERIOD");
+
+        TextView nameTextView = findViewById(R.id.textViewName);
+        TextView startTextView = findViewById(R.id.textViewStart);
+        TextView endTextView = findViewById(R.id.textViewEnd);
+        //TextView enabledTextView = findViewById(R.id.textViewEnabled);
+
+        nameTextView.setText(period.getName());
+        startTextView.setText(period.getStartOfPeriod());
+        endTextView.setText(period.getEndOfPeriod());
+
+
     }
+
 
 
 

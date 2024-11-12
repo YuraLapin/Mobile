@@ -65,11 +65,25 @@ public class Period implements Serializable {
                 .collect(Collectors.toList());
     }
 
-    private String capitalize(String day) {
+    public String capitalize(String day) {
         if (day == null || day.isEmpty()) {
             return day;
         }
         return day.substring(0, 1).toUpperCase() + day.substring(1).toLowerCase();
+    }
+
+    public int parseHour(String time) {
+        if (time != null && time.matches("\\d{2}:\\d{2}")) {
+            return Integer.parseInt(time.split(":")[0]);
+        }
+        throw new IllegalArgumentException("Invalid time format: " + time);
+    }
+
+    public int parseMinute(String time) {
+        if (time != null && time.matches("\\d{2}:\\d{2}")) {
+            return Integer.parseInt(time.split(":")[1]);
+        }
+        throw new IllegalArgumentException("Invalid time format: " + time);
     }
 
 }

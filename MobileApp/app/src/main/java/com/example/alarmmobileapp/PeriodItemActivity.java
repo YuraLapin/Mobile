@@ -1,7 +1,12 @@
 package com.example.alarmmobileapp;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +17,11 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.alarmmobileapp.classes.Period;
 
 public class PeriodItemActivity extends AppCompatActivity {
+
+    private EditText editName;
+    private TimePicker timePickerStart;
+    private TimePicker timePickerEnd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,25 +34,43 @@ public class PeriodItemActivity extends AppCompatActivity {
             return insets;
         });
 
+            editName = findViewById(R.id.editTextName);
+
+//            editName.addTextChangedListener(new TextWatcher() {
+//
+//
+//
+//                public void beforeTextChanged(CharSequence s, int start,
+//                                              int count, int after) {
+//                }
+//
+//                public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                    TextView textView = findViewById(R.id.editTextName);
+//                    textView.setText(s);
+//                }
+//
+//                @Override
+//                public void afterTextChanged(Editable editable) {
+//
+//                }
+//            });
+            timePickerStart = findViewById(R.id.timePickerStart);
+            timePickerEnd = findViewById(R.id.timePickerEnd);
 
 
-        Period period = (Period)getIntent().getSerializableExtra("PERIOD");
 
-        TextView nameTextView = findViewById(R.id.textViewName);
-        TextView startTextView = findViewById(R.id.textViewStart);
-        TextView endTextView = findViewById(R.id.textViewEnd);
-        //TextView enabledTextView = findViewById(R.id.textViewEnabled);
 
-        nameTextView.setText(period.getName());
-        startTextView.setText(period.getStartOfPeriod());
-        endTextView.setText(period.getEndOfPeriod());
+
+        Period period = (Period) getIntent().getSerializableExtra("PERIOD");
+        if (period != null) {
+            editName.setText(period.getName());
+            timePickerStart.setHour(period.parseHour(period.getStartOfPeriod()));
+            timePickerStart.setMinute(period.parseMinute(period.getStartOfPeriod()));
+            timePickerEnd.setHour(period.parseHour(period.getEndOfPeriod()));
+            timePickerEnd.setMinute(period.parseMinute(period.getEndOfPeriod()));
+
+        }
 
 
     }
-
-
-
-
-
-
 }

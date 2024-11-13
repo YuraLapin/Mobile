@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">AlarmMobileApp</string>
     <string name="Greeting">Начать</string>
+    <string name="starting">Starting</string>
+    <string name="ending">Ending</string>
+    <string name="setPeriods">Set parameters</string>
 </resources>

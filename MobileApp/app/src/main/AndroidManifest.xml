@@ -13,7 +13,13 @@
         android:theme="@style/Theme.AlarmMobileApp"
         tools:targetApi="31">
         <activity
+            android:name=".CreatePeriodItemActivity"
+            android:exported="false" />
+        <activity
             android:name=".AlarmActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PeriodItemActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -24,6 +30,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

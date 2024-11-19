@@ -1,9 +1,12 @@
 package com.example.alarmmobileapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -16,12 +19,20 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.alarmmobileapp.classes.Period;
+import com.example.alarmmobileapp.customfragments.DaysOfWeekDialogFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PeriodItemActivity extends AppCompatActivity {
 
     private EditText editName;
     private TimePicker timePickerStart;
     private TimePicker timePickerEnd;
+    private TextView daysOfWork;
+
+    private ArrayAdapter<String> listAdapter;
+    private List<String> selectedDays = new ArrayList<>();
 
 
     @Override
@@ -37,8 +48,9 @@ public class PeriodItemActivity extends AppCompatActivity {
 
             editName = findViewById(R.id.editTextName);
             timePickerStart = findViewById(R.id.timePickerStart);
-
             timePickerEnd = findViewById(R.id.timePickerEnd);
+            daysOfWork = findViewById(R.id.daysOfWorklist);
+
             timePickerStart.setIs24HourView(DateFormat.is24HourFormat(this));
             timePickerEnd.setIs24HourView(DateFormat.is24HourFormat(this));
 
@@ -47,8 +59,6 @@ public class PeriodItemActivity extends AppCompatActivity {
             timePickerEnd.setMinute(minute);
 
         });
-
-
 
         Period period = (Period) getIntent().getSerializableExtra("PERIOD");
         if (period != null) {
@@ -59,9 +69,19 @@ public class PeriodItemActivity extends AppCompatActivity {
             timePickerEnd.setMinute(period.parseMinute(period.getEndOfPeriod()));
 
         }
-
-
     }
+
+    public void OpenDaysDialog(View v){
+        DaysOfWeekDialogFragment dialog = new DaysOfWeekDialogFragment();
+        dialog.show(getSupportFragmentManager(), "days");
+    }
+    public void updateSelectedDays(List<String> days) {
+        selectedDays.clear(); // Очищаем текущий список
+        selectedDays.addAll(days); // Добавляем новые выбранные дни
+        listAdapter.notifyDataSetChanged(); // Уведомляем адаптер об изменениях
+    }
+
+
 
 
 }

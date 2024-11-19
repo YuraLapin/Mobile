@@ -3,6 +3,7 @@ package com.example.alarmmobileapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -70,6 +71,7 @@ public class AlarmActivity extends AppCompatActivity implements RecyclerViewInte
 
     @Override
     public void onItemClick(int position) {
+
         Intent intent = new Intent(AlarmActivity.this, PeriodItemActivity.class);
         intent.putExtra("PERIOD",periods.get(position));
         startActivity(intent);

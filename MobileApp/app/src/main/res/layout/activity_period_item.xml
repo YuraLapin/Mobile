@@ -55,17 +55,18 @@
         android:fontFamily="@font/montserrat_bold"
         android:textSize="20sp"
         />
+
     <TextView
         android:id="@+id/daysOfWorklist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="days"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="570dp"
         android:fontFamily="@font/montserrat_bold"
-        android:textSize="16sp"
+        android:onClick="OpenDaysDialog"
+        android:text="days"
 
-        />
+        android:textSize="16sp" />
 
 
 

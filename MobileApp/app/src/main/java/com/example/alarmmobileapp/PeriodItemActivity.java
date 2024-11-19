@@ -18,6 +18,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.alarmmobileapp.classes.DayOfWeek;
 import com.example.alarmmobileapp.classes.Period;
 import com.example.alarmmobileapp.customfragments.DaysOfWeekDialogFragment;
 
@@ -30,7 +31,7 @@ public class PeriodItemActivity extends AppCompatActivity {
     private TimePicker timePickerStart;
     private TimePicker timePickerEnd;
     private TextView daysOfWork;
-
+    Period period;
     private ArrayAdapter<String> listAdapter;
     private List<String> selectedDays = new ArrayList<>();
 
@@ -60,7 +61,7 @@ public class PeriodItemActivity extends AppCompatActivity {
 
         });
 
-        Period period = (Period) getIntent().getSerializableExtra("PERIOD");
+         period = (Period) getIntent().getSerializableExtra("PERIOD");
         if (period != null) {
             editName.setText(period.getName());
             timePickerStart.setHour(period.parseHour(period.getStartOfPeriod()));
@@ -75,13 +76,61 @@ public class PeriodItemActivity extends AppCompatActivity {
         DaysOfWeekDialogFragment dialog = new DaysOfWeekDialogFragment();
         dialog.show(getSupportFragmentManager(), "days");
     }
-    public void updateSelectedDays(List<String> days) {
-        selectedDays.clear(); // Очищаем текущий список
-        selectedDays.addAll(days); // Добавляем новые выбранные дни
-        listAdapter.notifyDataSetChanged(); // Уведомляем адаптер об изменениях
+    public void updateSelectedDays(List<String> selectedDays) {
+
+        List<DayOfWeek> daysOfWeek = new ArrayList<>();
+        for (String day : selectedDays) {
+            switch (day) {
+                case "Понедельник":
+                    daysOfWeek.add(DayOfWeek.MONDAY);
+                    break;
+                case "Вторник":
+                    daysOfWeek.add(DayOfWeek.TUESDAY);
+                    break;
+                case "Среда":
+                    daysOfWeek.add(DayOfWeek.WEDNESDAY);
+                    break;
+                case "Четверг":
+                    daysOfWeek.add(DayOfWeek.THURSDAY);
+                    break;
+                case "Пятница":
+                    daysOfWeek.add(DayOfWeek.FRIDAY);
+                    break;
+                case "Суббота":
+                    daysOfWeek.add(DayOfWeek.SATURDAY);
+                    break;
+                case "Воскресенье":
+                    daysOfWeek.add(DayOfWeek.SUNDAY);
+                    break;
+                default:
+                    // Обработка случая, когда строка не соответствует ни одному значению перечисления
+                    System.out.println("Некорректный день недели: " + day);
+                    break;
+            }
+        }
+        // Обновляем объект Period
+        if (period != null) {
+            period.setDaysOfWeek(daysOfWeek);
+        }
+        // Обновляем отображение дней на экране
+        updateDaysOfWorkDisplay();
     }
 
-
+    private void updateDaysOfWorkDisplay() {
+        if (period != null && period.getDaysOfWeek() != null) {
+            StringBuilder daysStringBuilder = new StringBuilder();
+            for (DayOfWeek day : period.getDaysOfWeek()) {
+                daysStringBuilder.append(day.toString()).append(", ");
+            }
+            // Удаляем последнюю запятую и пробел
+            if (daysStringBuilder.length() > 0) {
+                daysStringBuilder.setLength(daysStringBuilder.length() - 2);
+            }
+            daysOfWork.setText(daysStringBuilder.toString());
+        } else {
+            daysOfWork.setText("Нет выбранных дней");
+        }
+    }
 
 
 }

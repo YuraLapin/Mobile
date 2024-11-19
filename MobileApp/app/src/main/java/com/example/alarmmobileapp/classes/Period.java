@@ -73,14 +73,14 @@ public class Period implements Serializable {
     }
 
     public int parseHour(String time) {
-        if (time != null && time.matches("\\d{2}:\\d{2}")) {
+        if (time != null && time.matches("\\d{1,2}:\\d{1,2}")) {
             return Integer.parseInt(time.split(":")[0]);
         }
         throw new IllegalArgumentException("Invalid time format: " + time);
     }
 
     public int parseMinute(String time) {
-        if (time != null && time.matches("\\d{2}:\\d{2}")) {
+        if (time != null && time.matches("\\d{1,2}:\\d{1,2}")) {
             return Integer.parseInt(time.split(":")[1]);
         }
         throw new IllegalArgumentException("Invalid time format: " + time);

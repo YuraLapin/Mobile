@@ -39,17 +39,16 @@
     </RelativeLayout>
 
 
-
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addButton"
-        android:backgroundTint="@color/yellow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
+        android:backgroundTint="@color/yellow"
         android:contentDescription="@string/app_name"
+        android:onClick="CreateNewPeriod"
         android:src="@android:drawable/ic_input_add" />
 
     <androidx.recyclerview.widget.RecyclerView

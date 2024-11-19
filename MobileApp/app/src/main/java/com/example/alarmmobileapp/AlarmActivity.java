@@ -16,6 +16,7 @@ import com.example.alarmmobileapp.classes.DayOfWeek;
 import com.example.alarmmobileapp.classes.Period;
 import com.example.alarmmobileapp.classes.PeriodAdapter;
 import com.example.alarmmobileapp.interfaces.RecyclerViewInterface;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class AlarmActivity extends AppCompatActivity implements RecyclerViewInte
 
     ArrayList<Period> periods = new ArrayList<>();
     private RecyclerView recyclerView;
+    private FloatingActionButton addPeriodButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +43,17 @@ public class AlarmActivity extends AppCompatActivity implements RecyclerViewInte
         PeriodAdapter adapter = new PeriodAdapter(this,periods,this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        addPeriodButton = findViewById(R.id.addButton);
+
     }
 
     public void ReturnToMainActivity(View v){
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void CreateNewPeriod(View v){
+        Intent intent = new Intent(AlarmActivity.this, CreatePeriodItemActivity.class);
         startActivity(intent);
     }
 
@@ -56,15 +65,13 @@ public class AlarmActivity extends AppCompatActivity implements RecyclerViewInte
         periods.add(new Period("ABasdC","1:20","3:00", days, true));
         periods.add(new Period("sda","19:20","20:00", days, false));
         periods.add(new Period("qwea","1:20","10:00", days, true));
-        periods.add(new Period("gaq","9:20","20:00", days, false));
+        periods.add(new Period("gaq","19:20","20:00", days, false));
     }
 
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(AlarmActivity.this, PeriodItemActivity.class);
-
         intent.putExtra("PERIOD",periods.get(position));
-
         startActivity(intent);
     }
 }

@@ -3,6 +3,7 @@ package com.example.alarmmobileapp;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -35,29 +36,17 @@ public class PeriodItemActivity extends AppCompatActivity {
         });
 
             editName = findViewById(R.id.editTextName);
-
-//            editName.addTextChangedListener(new TextWatcher() {
-//
-//
-//
-//                public void beforeTextChanged(CharSequence s, int start,
-//                                              int count, int after) {
-//                }
-//
-//                public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                    TextView textView = findViewById(R.id.editTextName);
-//                    textView.setText(s);
-//                }
-//
-//                @Override
-//                public void afterTextChanged(Editable editable) {
-//
-//                }
-//            });
             timePickerStart = findViewById(R.id.timePickerStart);
+
             timePickerEnd = findViewById(R.id.timePickerEnd);
+            timePickerStart.setIs24HourView(DateFormat.is24HourFormat(this));
+            timePickerEnd.setIs24HourView(DateFormat.is24HourFormat(this));
 
+            timePickerStart.setOnTimeChangedListener((view, hourOfDay, minute) -> {
+            timePickerEnd.setHour(hourOfDay);
+            timePickerEnd.setMinute(minute);
 
+        });
 
 
 
@@ -73,4 +62,6 @@ public class PeriodItemActivity extends AppCompatActivity {
 
 
     }
+
+
 }

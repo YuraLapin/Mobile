@@ -7,6 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".PeriodItemActivity">
 
+
+    <RelativeLayout
+        android:id="@+id/upper_bg"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/yellow"
+        >
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/periodsLabel"
         android:layout_width="wrap_content"
@@ -14,7 +23,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:fontFamily="@font/montserrat_bold"
-        android:text="Current period"
+        android:text="Текущий период работы"
         android:textSize="28sp" />
 
     <TextView
@@ -36,6 +45,30 @@
         android:textSize="20sp"
         />
 
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Дни недели"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="540dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="20sp"
+        />
+    <TextView
+        android:id="@+id/daysOfWorklist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="days"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="570dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="16sp"
+
+        />
+
+
+
 
     <RelativeLayout
         android:id="@+id/startPeriodTime"
@@ -46,6 +79,7 @@
             android:id="@+id/timePickerStart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:timePickerMode="spinner"/>
 
 
@@ -71,8 +105,10 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="110dp"
-        android:ems="10"
+        android:ems="5"
+        android:fontFamily="@font/montserrat_bold"
         android:inputType="text"
+        android:textSize="20sp"
         android:minHeight="48dp"
         android:text="Name" />
 </RelativeLayout>

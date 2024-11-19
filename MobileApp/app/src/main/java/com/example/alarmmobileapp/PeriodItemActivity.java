@@ -103,16 +103,13 @@ public class PeriodItemActivity extends AppCompatActivity {
                     daysOfWeek.add(DayOfWeek.SUNDAY);
                     break;
                 default:
-                    // Обработка случая, когда строка не соответствует ни одному значению перечисления
                     System.out.println("Некорректный день недели: " + day);
                     break;
             }
         }
-        // Обновляем объект Period
         if (period != null) {
             period.setDaysOfWeek(daysOfWeek);
         }
-        // Обновляем отображение дней на экране
         updateDaysOfWorkDisplay();
     }
 
@@ -122,7 +119,6 @@ public class PeriodItemActivity extends AppCompatActivity {
             for (DayOfWeek day : period.getDaysOfWeek()) {
                 daysStringBuilder.append(day.toString()).append(", ");
             }
-            // Удаляем последнюю запятую и пробел
             if (daysStringBuilder.length() > 0) {
                 daysStringBuilder.setLength(daysStringBuilder.length() - 2);
             }

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreatePeriodItemActivity">
+
+    <RelativeLayout
+        android:id="@+id/upper_bg"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/yellow"
+        >
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/periodsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Текущий период работы"
+        android:textSize="28sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/starting"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="180dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="20sp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ending"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="360dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="20sp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Дни недели"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="540dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="20sp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="days"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="570dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="16sp"
+
+        />
+
+
+
+
+    <RelativeLayout
+        android:id="@+id/startPeriodTime"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="190dp">
+        <TimePicker
+            android:id="@+id/timePickerStart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:timePickerMode="spinner"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/endPeriodTime"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="370dp">
+        <TimePicker
+            android:id="@+id/timePickerEnd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:timePickerMode="spinner"/>
+
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="110dp"
+        android:ems="5"
+        android:fontFamily="@font/montserrat_bold"
+        android:inputType="text"
+        android:textSize="20sp"
+        android:minHeight="48dp"
+        android:text="Name" />
+
+
+</RelativeLayout>

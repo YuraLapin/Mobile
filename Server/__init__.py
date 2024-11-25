@@ -1,9 +1,41 @@
 from flask import Flask, jsonify, request
+import json
 app = Flask(__name__)
 
 CRONTAB_FILE_LOCATION = "crontabs"
 GPIO_FILE_LOCATION = "gpio/gpio24"
+JSON_FILE_LOCATION = "intervals.json"
 days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
+
+
+
+
+def init():
+    try:
+        f = open(JSON_FILE_LOCATION, 'r')
+        raw_json = f.read()
+        f.close()
+        parsed_intervals = json.loads(raw_json)
+        for interval in parsed_intervals:
+            on_line = create_crontab_line(interval["day_of_week_on"], interval["hour_on"], interval["minute_on"], True)
+            off_line = create_crontab_line(interval["day_of_week_off"], interval["hour_off"], interval["minute_off"], False)
+            write_on = True
+            write_off = True
+            f = open(CRONTAB_FILE_LOCATION, "r+")
+            for line in f.readlines():
+                if line.strip("\n") == on_line.strip("\n"):
+                    write_on = False
+                elif line.strip("\n") == off_line.strip("\n"):
+                    write_off = False
+            if write_on:
+                f.write(on_line)
+            if write_off:
+                f.write(off_line)
+            f.close()
+
+    except FileNotFoundError:
+        print(f"intervals.json not found at {JSON_FILE_LOCATION}")
+
 
 def create_crontab_line(day_of_week, hour, minute, on):
     crontab_line = "\n\n"
@@ -24,6 +56,8 @@ def create_crontab_line(day_of_week, hour, minute, on):
 
     return crontab_line
 
+
+
 @app.route('/add_interval', methods=["POST"])
 def add_interval():
     day_of_week_on = request.values['day_of_week_on']
@@ -32,6 +66,22 @@ def add_interval():
     day_of_week_off = request.values['day_of_week_off']
     hour_off = request.values['hour_off']
     minute_off = request.values['minute_off']
+
+    try:
+        f = open(JSON_FILE_LOCATION, 'r')
+        raw_json = f.read()
+        f.close()
+    except FileNotFoundError:
+        raw_json = '[]'
+
+    parsed_intervals = json.loads(raw_json)
+    interval = {"day_of_week_on": day_of_week_on, "hour_on": hour_on, "minute_on": minute_on, "day_of_week_off": day_of_week_off, "hour_off": hour_off, "minute_off": minute_off}
+    if interval not in parsed_intervals:
+        parsed_intervals.append(interval)
+        raw_json = json.dumps(parsed_intervals)
+        f = open(JSON_FILE_LOCATION, 'w')
+        f.write(raw_json)
+        f.close
 
     on_line = create_crontab_line(day_of_week_on, hour_on, minute_on, True)
     off_line = create_crontab_line(day_of_week_off, hour_off, minute_off, False)
@@ -57,6 +107,8 @@ def add_interval():
     resp = jsonify(success=True)
     return resp
 
+
+
 @app.route('/delete_interval', methods=["POST"])
 def delete_interval():
     day_of_week_on = request.values['day_of_week_on']
@@ -65,6 +117,25 @@ def delete_interval():
     day_of_week_off = request.values['day_of_week_off']
     hour_off = request.values['hour_off']
     minute_off = request.values['minute_off']
+
+    try:
+        f = open(JSON_FILE_LOCATION, 'r')
+        raw_json = f.read()
+        f.close()
+    except FileNotFoundError:
+        raw_json = '[]'
+
+    old_intervals = json.loads(raw_json)
+    new_intervals = []
+    interval_to_delete = {"day_of_week_on": day_of_week_on, "hour_on": hour_on, "minute_on": minute_on, "day_of_week_off": day_of_week_off, "hour_off": hour_off, "minute_off": minute_off}
+    for interval in old_intervals:
+        if interval != interval_to_delete:
+            new_intervals.append(interval)
+
+    raw_json = json.dumps(new_intervals)
+    f = open(JSON_FILE_LOCATION, 'w')
+    f.write(raw_json)
+    f.close
 
     on_line = create_crontab_line(day_of_week_on, hour_on, minute_on, True)
     off_line = create_crontab_line(day_of_week_off, hour_off, minute_off, False)
@@ -89,9 +160,16 @@ def delete_interval():
     resp = jsonify(success=True)
     return resp
 
+
+
 @app.route('/check_interval', methods=["POST", "GET"])
 def check_status():
     f = open(GPIO_FILE_LOCATION, "r")
     res = f.read()
     f.close()
     return res
+
+
+
+
+init()

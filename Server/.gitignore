@@ -162,6 +162,7 @@ cython_debug/
 #.idea/
 
 
-/flask_venv
+/serv_venv
 /gpio
 crontabs
+intervals.json

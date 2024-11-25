@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PeriodItemActivity">
-
+    tools:context=".CreatePeriodItemActivity">
 
     <RelativeLayout
         android:id="@+id/upper_bg"
@@ -46,7 +45,6 @@
         />
 
     <TextView
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Дни недели"
@@ -55,18 +53,16 @@
         android:fontFamily="@font/montserrat_bold"
         android:textSize="20sp"
         />
-
     <TextView
-        android:id="@+id/daysOfWorklist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="days"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="570dp"
         android:fontFamily="@font/montserrat_bold"
-        android:onClick="OpenDaysDialog"
-        android:text="days"
+        android:textSize="16sp"
 
-        android:textSize="16sp" />
+        />
 
 
 
@@ -112,4 +108,6 @@
         android:textSize="20sp"
         android:minHeight="48dp"
         android:text="Name" />
+
+
 </RelativeLayout>

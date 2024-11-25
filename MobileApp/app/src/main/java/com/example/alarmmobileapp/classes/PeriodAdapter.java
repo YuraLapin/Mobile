@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.alarmmobileapp.AlarmActivity;
 import com.example.alarmmobileapp.R;
 import com.example.alarmmobileapp.interfaces.RecyclerViewInterface;
 
@@ -18,10 +20,12 @@ import java.util.List;
 public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.PeriodViewHolder> {
 
     List<Period> periods;
+    private final Context context;
     private final LayoutInflater inflater;
     private final RecyclerViewInterface recyclerViewInterface;
 
     public PeriodAdapter(Context context, List<Period> periods, RecyclerViewInterface recyclerViewInterface){
+        this.context = context;
         this.periods = periods;
         this.recyclerViewInterface = recyclerViewInterface;
         this.inflater = LayoutInflater.from(context);
@@ -41,6 +45,16 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.PeriodView
         holder.start.setText(period.getStartOfPeriod());
         holder.end.setText(period.getEndOfPeriod());
         holder.enabled.setChecked(period.isEnabled());
+
+        holder.enabled.setOnCheckedChangeListener(null);
+        holder.enabled.setChecked(period.isEnabled());
+        holder.enabled.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            period.setEnabled(isChecked);
+            String message = period.isEnabled() ? "Enabled" : "Disabled";
+            Toast.makeText(context, "Period " + period.getName() + " is " + message, Toast.LENGTH_SHORT).show();
+        });
+
+
     }
 
     @Override

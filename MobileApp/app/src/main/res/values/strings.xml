@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">AlarmMobileApp</string>
     <string name="Greeting">Начать</string>
-    <string name="starting">Starting</string>
-    <string name="ending">Ending</string>
-    <string name="setPeriods">Set parameters</string>
+    <string name="starting">Начало работы</string>
+    <string name="ending">Завершение работы</string>
+    <string name="setPeriods">Установите данные</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

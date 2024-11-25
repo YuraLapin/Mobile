@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 public class Period implements Serializable {
 
+    private int Id;
     private String name;
     private String startOfPeriod;
     private String endOfPeriod;
@@ -13,13 +14,19 @@ public class Period implements Serializable {
     private boolean enabled;
 
 
-    public Period(String name, String start, String end, List<DayOfWeek> days, boolean enabled){
+    public Period(int id, String name, String start, String end, List<DayOfWeek> days, boolean enabled){
+        Id = id;
         this.name = name;
         this.startOfPeriod = start;
         this.endOfPeriod = end;
         this.daysOfWeek = days;
         this.enabled = enabled;
     }
+
+    public int getId() {
+        return Id;
+    }
+
 
     public void setName(String name) {
         this.name = name;

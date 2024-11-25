@@ -62,18 +62,34 @@ public class AlarmActivity extends AppCompatActivity implements RecyclerViewInte
         List<DayOfWeek>days = new ArrayList<DayOfWeek>();
         days.add(DayOfWeek.MONDAY);
         days.add(DayOfWeek.FRIDAY);
-        periods.add(new Period("ABC","19:20","20:00", days, true));
-        periods.add(new Period("ABasdC","1:20","3:00", days, true));
-        periods.add(new Period("sda","19:20","20:00", days, false));
-        periods.add(new Period("qwea","1:20","10:00", days, true));
-        periods.add(new Period("gaq","19:20","20:00", days, false));
+        Period p1 = new Period(0,"ABC","19:20","20:00", days, true);
+        Period p2 = new Period(1,"ABasdC","1:20","3:00", days, true);
+        Period p3 = new Period(2,"sda","19:20","20:00", days, false);
+        Period p4 = new Period(3,"qwea","1:20","10:00", days, true);
+        Period p5 = new Period(4,"gaq","19:20","20:00", days, false);
+        periods.add(p1);
+        periods.add(p2);
+        periods.add(p3);
+        periods.add(p4);
+        periods.add(p5);
     }
 
     @Override
     public void onItemClick(int position) {
-
         Intent intent = new Intent(AlarmActivity.this, PeriodItemActivity.class);
         intent.putExtra("PERIOD",periods.get(position));
-        startActivity(intent);
+        startActivityForResult(intent,1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            Period updatedPeriod = (Period) data.getSerializableExtra("PERIOD");
+            if (updatedPeriod != null) {
+                periods.set(updatedPeriod.getId(),updatedPeriod);
+                ((PeriodAdapter) recyclerView.getAdapter()).updatePeriods(periods);
+            }
+        }
     }
 }

@@ -53,8 +53,6 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.PeriodView
             String message = period.isEnabled() ? "Enabled" : "Disabled";
             Toast.makeText(context, "Period " + period.getName() + " is " + message, Toast.LENGTH_SHORT).show();
         });
-
-
     }
 
     @Override
@@ -89,6 +87,10 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.PeriodView
             });
 
         }
+    }
+    public void updatePeriods(List<Period> newPeriods) {
+        this.periods = newPeriods;
+        notifyDataSetChanged();
     }
 
 }

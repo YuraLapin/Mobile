@@ -68,6 +68,7 @@ public class PeriodItemActivity extends AppCompatActivity {
             timePickerStart.setMinute(period.parseMinute(period.getStartOfPeriod()));
             timePickerEnd.setHour(period.parseHour(period.getEndOfPeriod()));
             timePickerEnd.setMinute(period.parseMinute(period.getEndOfPeriod()));
+            updateDaysOfWorkDisplay();
 
         }
     }
@@ -77,7 +78,7 @@ public class PeriodItemActivity extends AppCompatActivity {
         Bundle args = new Bundle();
         args.putSerializable("period", period);
         dialog.setArguments(args);
-        dialog.show(getSupportFragmentManager(), "days");
+        dialog.show(getSupportFragmentManager(), "Выберите дни недели");
     }
     public void updateSelectedDays(List<String> selectedDays) {
         //DayOfWeek day = DayOfWeek.fromString(days.get(i));
@@ -106,12 +107,20 @@ public class PeriodItemActivity extends AppCompatActivity {
         }
     }
 
-    private void ConfirmPeriodChanges(){
-        period.setName(editName.toString());
-        //period.setStartOfPeriod(timePickerStart.getHour());
+    public void CreateNewPeriod(View view) {
+        String name = editName.getText().toString();
+        period.setName(name);
 
-        Intent intent = new Intent( PeriodItemActivity.this,AlarmActivity.class);
-        startActivity(intent);
+        String startOfPeriod = String.format("%02d:%02d", timePickerStart.getHour(), timePickerStart.getMinute());
+        period.setStartOfPeriod(startOfPeriod);
+
+        String endOfPeriod = String.format("%02d:%02d", timePickerEnd.getHour(), timePickerEnd.getMinute());
+        period.setEndOfPeriod(endOfPeriod);
+
+        Intent intent = new Intent();
+        intent.putExtra("PERIOD", period);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
 

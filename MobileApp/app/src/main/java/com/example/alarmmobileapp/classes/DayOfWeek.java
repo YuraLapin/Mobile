@@ -42,5 +42,25 @@ public enum DayOfWeek {
         public String toString() {
             return "Воскресенье";
         }
+    };
+    public static DayOfWeek fromString(String day) {
+        switch (day) {
+            case "Понедельник":
+                return MONDAY;
+            case "Вторник":
+                return TUESDAY;
+            case "Среда":
+                return WEDNESDAY;
+            case "Четверг":
+                return THURSDAY;
+            case "Пятница":
+                return FRIDAY;
+            case "Суббота":
+                return SATURDAY;
+            case "Воскресенье":
+                return SUNDAY;
+            default:
+                throw new IllegalArgumentException("Неизвестный день: " + day);
+        }
     }
 }

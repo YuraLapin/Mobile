@@ -74,38 +74,16 @@ public class PeriodItemActivity extends AppCompatActivity {
 
     public void OpenDaysDialog(View v){
         DaysOfWeekDialogFragment dialog = new DaysOfWeekDialogFragment();
+        Bundle args = new Bundle();
+        args.putSerializable("period", period);
+        dialog.setArguments(args);
         dialog.show(getSupportFragmentManager(), "days");
     }
     public void updateSelectedDays(List<String> selectedDays) {
-
+        //DayOfWeek day = DayOfWeek.fromString(days.get(i));
         List<DayOfWeek> daysOfWeek = new ArrayList<>();
         for (String day : selectedDays) {
-            switch (day) {
-                case "Понедельник":
-                    daysOfWeek.add(DayOfWeek.MONDAY);
-                    break;
-                case "Вторник":
-                    daysOfWeek.add(DayOfWeek.TUESDAY);
-                    break;
-                case "Среда":
-                    daysOfWeek.add(DayOfWeek.WEDNESDAY);
-                    break;
-                case "Четверг":
-                    daysOfWeek.add(DayOfWeek.THURSDAY);
-                    break;
-                case "Пятница":
-                    daysOfWeek.add(DayOfWeek.FRIDAY);
-                    break;
-                case "Суббота":
-                    daysOfWeek.add(DayOfWeek.SATURDAY);
-                    break;
-                case "Воскресенье":
-                    daysOfWeek.add(DayOfWeek.SUNDAY);
-                    break;
-                default:
-                    System.out.println("Некорректный день недели: " + day);
-                    break;
-            }
+            daysOfWeek.add(DayOfWeek.fromString(day));
         }
         if (period != null) {
             period.setDaysOfWeek(daysOfWeek);
@@ -126,6 +104,14 @@ public class PeriodItemActivity extends AppCompatActivity {
         } else {
             daysOfWork.setText("Нет выбранных дней");
         }
+    }
+
+    private void ConfirmPeriodChanges(){
+        period.setName(editName.toString());
+        //period.setStartOfPeriod(timePickerStart.getHour());
+
+        Intent intent = new Intent( PeriodItemActivity.this,AlarmActivity.class);
+        startActivity(intent);
     }
 
 

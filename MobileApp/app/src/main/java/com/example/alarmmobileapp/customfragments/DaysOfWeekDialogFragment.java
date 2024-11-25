@@ -15,6 +15,7 @@
     import com.example.alarmmobileapp.R;
     import com.example.alarmmobileapp.classes.DayOfWeek;
     import com.example.alarmmobileapp.classes.DaysOfWeekAdapter;
+    import com.example.alarmmobileapp.classes.Period;
 
     import java.util.Arrays;
     import java.util.List;
@@ -26,6 +27,7 @@
                 DayOfWeek.TUESDAY.toString(),
                 DayOfWeek.WEDNESDAY.toString(),
                 DayOfWeek.THURSDAY.toString(),
+                DayOfWeek.FRIDAY.toString(),
                 DayOfWeek.SATURDAY.toString(),
                 DayOfWeek.SUNDAY.toString(),
         };
@@ -33,13 +35,13 @@
         @NonNull
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
             LayoutInflater inflater = requireActivity().getLayoutInflater();
             View dialogView = inflater.inflate(R.layout.days_dialog, null);
-
             listOfDays = dialogView.findViewById(R.id.list_of_days);
 
-            DaysOfWeekAdapter adapter = new DaysOfWeekAdapter(getActivity(), Arrays.asList(daysArray));
+            Period period = (Period) getArguments().getSerializable("period");
+
+            DaysOfWeekAdapter adapter = new DaysOfWeekAdapter(getActivity(), Arrays.asList(daysArray),period);
             listOfDays.setAdapter(adapter);
 
             builder.setView(dialogView)
@@ -54,5 +56,8 @@
 
             return builder.create();
         }
+
+
+
 
     }

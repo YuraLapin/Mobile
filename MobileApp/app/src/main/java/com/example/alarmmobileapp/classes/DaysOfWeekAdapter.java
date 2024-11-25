@@ -17,13 +17,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DaysOfWeekAdapter extends ArrayAdapter<String> {
+    private Period period;
     private final List<String> days;
     private final boolean[] checkedStates;
 
-    public DaysOfWeekAdapter(@NonNull Context context, List<String> days) {
+    public DaysOfWeekAdapter(@NonNull Context context, List<String> days, Period period) {
         super(context, R.layout.days_of_week_list_item, days);
         this.days = days;
         this.checkedStates = new boolean[days.size()];
+        this.period = period;
+        if(period!=null){
+            for(int i = 0; i < days.size(); i++){
+                DayOfWeek day = DayOfWeek.fromString(days.get(i));
+                if(period.getDaysOfWeek().contains(day)){
+                    checkedStates[i] = true;
+                }
+            }
+        }
     }
 
     @NonNull

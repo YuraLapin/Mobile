@@ -121,7 +121,7 @@ public class CreatePeriodItemActivity extends AppCompatActivity {
 
         String endOfPeriod = String.format("%02d:%02d", timePickerEnd.getHour(), timePickerEnd.getMinute());
         period.setEndOfPeriod(endOfPeriod);
-
+        period.setEnabled(true);
         if(period.getDaysOfWeek().size()==0){
             period.setEnabled(false);
         }

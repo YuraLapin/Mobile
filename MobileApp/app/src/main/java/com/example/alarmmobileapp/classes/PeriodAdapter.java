@@ -44,15 +44,17 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.PeriodView
         holder.name.setText(period.getName());
         holder.start.setText(period.getStartOfPeriod());
         holder.end.setText(period.getEndOfPeriod());
-        holder.enabled.setChecked(period.isEnabled());
-
         holder.enabled.setOnCheckedChangeListener(null);
         holder.enabled.setChecked(period.isEnabled());
+
         holder.enabled.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
             period.setEnabled(isChecked);
             String message = period.isEnabled() ? "Включен" : "Выключен";
             Toast.makeText(context, "Период " + period.getName() + " " + message, Toast.LENGTH_SHORT).show();
+
         });
+
     }
 
     @Override
@@ -90,7 +92,7 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.PeriodView
     }
     public void updatePeriods(List<Period> newPeriods) {
         this.periods = newPeriods;
-        notifyDataSetChanged();
+         notifyDataSetChanged();
     }
 
 }

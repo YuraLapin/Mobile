@@ -94,7 +94,7 @@
         android:layout_marginBottom="15dp"
         android:backgroundTint="@color/yellow"
         android:contentDescription="@string/app_name"
-        android:onClick="CreateNewPeriod"
+        android:onClick="EditPeriod"
         android:src="@drawable/baseline_done_24" />
 
     <RelativeLayout

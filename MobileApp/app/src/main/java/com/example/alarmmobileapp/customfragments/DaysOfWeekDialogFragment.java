@@ -45,7 +45,7 @@
             listOfDays.setAdapter(adapter);
 
             builder.setView(dialogView)
-                    .setTitle("Выберите день недели")
+                    .setTitle("Выберите дни недели")
                     .setPositiveButton("OK", (dialog, which) -> {
                         List<String> selectedDays = adapter.getSelectedDays();
                         if (getActivity() instanceof PeriodItemActivity) {

@@ -78,10 +78,10 @@ public class PeriodItemActivity extends AppCompatActivity {
         Bundle args = new Bundle();
         args.putSerializable("period", period);
         dialog.setArguments(args);
-        dialog.show(getSupportFragmentManager(), "Выберите дни недели");
+        dialog.show(getSupportFragmentManager(), "");
     }
     public void updateSelectedDays(List<String> selectedDays) {
-        //DayOfWeek day = DayOfWeek.fromString(days.get(i));
+
         List<DayOfWeek> daysOfWeek = new ArrayList<>();
         for (String day : selectedDays) {
             daysOfWeek.add(DayOfWeek.fromString(day));
@@ -93,7 +93,7 @@ public class PeriodItemActivity extends AppCompatActivity {
     }
 
     private void updateDaysOfWorkDisplay() {
-        if (period != null && period.getDaysOfWeek() != null) {
+        if (/*period != null && */period.getDaysOfWeek() != null && period.getDaysOfWeek().size()!=0) {
             StringBuilder daysStringBuilder = new StringBuilder();
             for (DayOfWeek day : period.getDaysOfWeek()) {
                 daysStringBuilder.append(day.toString()).append(", ");
@@ -107,7 +107,7 @@ public class PeriodItemActivity extends AppCompatActivity {
         }
     }
 
-    public void CreateNewPeriod(View view) {
+    public void EditPeriod(View view) {
         String name = editName.getText().toString();
         period.setName(name);
 

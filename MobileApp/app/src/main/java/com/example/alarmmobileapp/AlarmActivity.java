@@ -91,8 +91,6 @@ public class AlarmActivity extends AppCompatActivity implements RecyclerViewInte
         if (requestCode == 1 && resultCode == RESULT_OK) {
             Period updatedPeriod = (Period) data.getSerializableExtra("PERIOD");
             if (updatedPeriod != null) {
-                //periods.remove(selectedPosition);
-                //periods.add(updatedPeriod);
                 periods.set(selectedPosition,updatedPeriod);
                 ((PeriodAdapter) recyclerView.getAdapter()).updatePeriods(periods);
             }

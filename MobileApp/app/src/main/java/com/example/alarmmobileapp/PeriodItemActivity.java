@@ -93,7 +93,7 @@ public class PeriodItemActivity extends AppCompatActivity {
     }
 
     private void updateDaysOfWorkDisplay() {
-        if (/*period != null && */period.getDaysOfWeek() != null && period.getDaysOfWeek().size()!=0) {
+        if (period.getDaysOfWeek() != null && period.getDaysOfWeek().size()!=0) {
             StringBuilder daysStringBuilder = new StringBuilder();
             for (DayOfWeek day : period.getDaysOfWeek()) {
                 daysStringBuilder.append(day.toString()).append(", ");
@@ -116,6 +116,11 @@ public class PeriodItemActivity extends AppCompatActivity {
 
         String endOfPeriod = String.format("%02d:%02d", timePickerEnd.getHour(), timePickerEnd.getMinute());
         period.setEndOfPeriod(endOfPeriod);
+
+        if(period.getDaysOfWeek().size()==0)
+        {
+            period.setEnabled(false);
+        }
 
         Intent intent = new Intent();
         intent.putExtra("PERIOD", period);

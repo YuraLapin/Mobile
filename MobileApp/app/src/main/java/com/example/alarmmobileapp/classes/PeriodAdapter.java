@@ -51,7 +51,7 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.PeriodView
         holder.enabled.setOnCheckedChangeListener((buttonView, isChecked) -> {
             period.setEnabled(isChecked);
             String message = period.isEnabled() ? "Включен" : "Выключен";
-            Toast.makeText(context, "Period " + period.getName() + " " + message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Период " + period.getName() + " " + message, Toast.LENGTH_SHORT).show();
         });
     }
 

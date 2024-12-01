@@ -28,6 +28,7 @@ public class AlarmActivity extends AppCompatActivity implements RecyclerViewInte
     ArrayList<Period> periods = new ArrayList<>();
     private RecyclerView recyclerView;
     private FloatingActionButton addPeriodButton;
+    private Integer selectedPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,19 +55,20 @@ public class AlarmActivity extends AppCompatActivity implements RecyclerViewInte
     }
 
     public void CreateNewPeriod(View v){
-        Intent intent = new Intent(AlarmActivity.this, CreatePeriodItemActivity.class);
-        startActivity(intent);
+        Intent intent = new Intent(this, CreatePeriodItemActivity.class);
+        intent.putExtra("existingPeriods",periods);
+        startActivityForResult(intent,2);
     }
 
     private void setPeriodData(){
         List<DayOfWeek>days = new ArrayList<DayOfWeek>();
         days.add(DayOfWeek.MONDAY);
         days.add(DayOfWeek.FRIDAY);
-        Period p1 = new Period(0,"ABC","19:20","20:00", days, true);
-        Period p2 = new Period(1,"ABasdC","1:20","3:00", days, true);
-        Period p3 = new Period(2,"sda","19:20","20:00", days, false);
-        Period p4 = new Period(3,"qwea","1:20","10:00", days, true);
-        Period p5 = new Period(4,"gaq","19:20","20:00", days, false);
+        Period p1 = new Period(1,"ABC","19:20","20:00", days, true);
+        Period p2 = new Period(2,"ABasdC","01:20","3:00", days, true);
+        Period p3 = new Period(4,"sda","19:20","20:00", days, false);
+        Period p4 = new Period(5,"qwea","01:20","10:00", days, true);
+        Period p5 = new Period(6,"gaq","19:20","20:00", days, false);
         periods.add(p1);
         periods.add(p2);
         periods.add(p3);
@@ -77,7 +79,9 @@ public class AlarmActivity extends AppCompatActivity implements RecyclerViewInte
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(AlarmActivity.this, PeriodItemActivity.class);
-        intent.putExtra("PERIOD",periods.get(position));
+        Period selectedPeriod = periods.get(position);
+        selectedPosition=position;
+        intent.putExtra("PERIOD",selectedPeriod);
         startActivityForResult(intent,1);
     }
 
@@ -87,7 +91,16 @@ public class AlarmActivity extends AppCompatActivity implements RecyclerViewInte
         if (requestCode == 1 && resultCode == RESULT_OK) {
             Period updatedPeriod = (Period) data.getSerializableExtra("PERIOD");
             if (updatedPeriod != null) {
-                periods.set(updatedPeriod.getId(),updatedPeriod);
+                //periods.remove(selectedPosition);
+                //periods.add(updatedPeriod);
+                periods.set(selectedPosition,updatedPeriod);
+                ((PeriodAdapter) recyclerView.getAdapter()).updatePeriods(periods);
+            }
+        }
+        if (requestCode == 2 && resultCode == RESULT_OK) {
+            Period newPeriod = (Period) data.getSerializableExtra("PERIOD");
+            if (newPeriod != null) {
+                periods.add(newPeriod);
                 ((PeriodAdapter) recyclerView.getAdapter()).updatePeriods(periods);
             }
         }

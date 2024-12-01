@@ -1,21 +1,30 @@
 package com.example.alarmmobileapp.classes;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Period implements Serializable {
 
-    private int Id;
+    private int id;
     private String name;
     private String startOfPeriod;
     private String endOfPeriod;
     private List<DayOfWeek> daysOfWeek;
     private boolean enabled;
 
+    public Period(){
+
+        this.name = "";
+        this.startOfPeriod = "";
+        this.endOfPeriod = "";
+        this.daysOfWeek = new ArrayList<DayOfWeek>();
+        this.enabled = false;
+    }
 
     public Period(int id, String name, String start, String end, List<DayOfWeek> days, boolean enabled){
-        Id = id;
+        this.id = id;
         this.name = name;
         this.startOfPeriod = start;
         this.endOfPeriod = end;
@@ -24,7 +33,7 @@ public class Period implements Serializable {
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
 

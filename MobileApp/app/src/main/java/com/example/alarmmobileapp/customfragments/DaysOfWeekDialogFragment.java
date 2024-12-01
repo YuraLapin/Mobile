@@ -11,6 +11,7 @@
     import androidx.annotation.NonNull;
     import androidx.fragment.app.DialogFragment;
 
+    import com.example.alarmmobileapp.CreatePeriodItemActivity;
     import com.example.alarmmobileapp.PeriodItemActivity;
     import com.example.alarmmobileapp.R;
     import com.example.alarmmobileapp.classes.DayOfWeek;
@@ -50,6 +51,9 @@
                         List<String> selectedDays = adapter.getSelectedDays();
                         if (getActivity() instanceof PeriodItemActivity) {
                             ((PeriodItemActivity) getActivity()).updateSelectedDays(selectedDays);
+                        }
+                        if (getActivity() instanceof CreatePeriodItemActivity) {
+                            ((CreatePeriodItemActivity) getActivity()).updateSelectedDays(selectedDays);
                         }
                     })
                     .setNegativeButton("Отмена", null);

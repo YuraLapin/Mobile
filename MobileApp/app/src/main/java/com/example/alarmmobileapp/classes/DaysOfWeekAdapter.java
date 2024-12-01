@@ -26,6 +26,7 @@ public class DaysOfWeekAdapter extends ArrayAdapter<String> {
         this.days = days;
         this.checkedStates = new boolean[days.size()];
         this.period = period;
+
         if(period!=null){
             for(int i = 0; i < days.size(); i++){
                 DayOfWeek day = DayOfWeek.fromString(days.get(i));

@@ -32,8 +32,7 @@ public class PeriodItemActivity extends AppCompatActivity {
     private TimePicker timePickerEnd;
     private TextView daysOfWork;
     Period period;
-    private ArrayAdapter<String> listAdapter;
-    private List<String> selectedDays = new ArrayList<>();
+
 
 
     @Override
@@ -46,7 +45,6 @@ public class PeriodItemActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
             editName = findViewById(R.id.editTextName);
             timePickerStart = findViewById(R.id.timePickerStart);
             timePickerEnd = findViewById(R.id.timePickerEnd);

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -65,7 +66,7 @@ public class AlarmActivity extends AppCompatActivity implements RecyclerViewInte
         days.add(DayOfWeek.MONDAY);
         days.add(DayOfWeek.FRIDAY);
         Period p1 = new Period(1,"ABC","19:20","20:00", days, true);
-        Period p2 = new Period(2,"ABasdC","01:20","3:00", days, true);
+        Period p2 = new Period(2,"ABasdC","01:20","03:00", days, true);
         Period p3 = new Period(4,"sda","19:20","20:00", days, false);
         Period p4 = new Period(5,"qwea","01:20","10:00", days, true);
         Period p5 = new Period(6,"gaq","19:20","20:00", days, false);
@@ -83,6 +84,13 @@ public class AlarmActivity extends AppCompatActivity implements RecyclerViewInte
         selectedPosition=position;
         intent.putExtra("PERIOD",selectedPeriod);
         startActivityForResult(intent,1);
+    }
+    @Override
+    public void onItemDelete(int position) {
+        if (position >= 0 && position < periods.size()) {
+            periods.remove(position);
+            ((PeriodAdapter) recyclerView.getAdapter()).updatePeriods(periods);
+        }
     }
 
     @Override
@@ -102,5 +110,18 @@ public class AlarmActivity extends AppCompatActivity implements RecyclerViewInte
                 ((PeriodAdapter) recyclerView.getAdapter()).updatePeriods(periods);
             }
         }
+    }
+
+    public void showDeleteConfirmationDialog(int position) {
+        new AlertDialog.Builder(this)
+                .setMessage("Вы действительно хотите удалить этот период?")
+                .setPositiveButton("Да", (dialog, which) -> {
+                    onItemDelete(position);
+                    Toast.makeText(this, "Период удален", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("Отмена", (dialog, which) -> {
+                    dialog.dismiss();
+                })
+                .show();
     }
 }

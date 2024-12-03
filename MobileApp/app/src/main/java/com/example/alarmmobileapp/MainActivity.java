@@ -37,26 +37,6 @@ public class MainActivity extends AppCompatActivity {
         imageButtonBell = findViewById(R.id.ImageButtonBell);
         bellSound = MediaPlayer.create(this, R.raw.kolokol_v3);
 
-//        setAlarm= findViewById(R.id.alarmButton);
-//
-//        setAlarm.setOnClickListener(v->{
-//            MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
-//                    .setTimeFormat(TimeFormat.CLOCK_24H)
-//                    .setHour(12)
-//                    .setMinute(0)
-//                    .setTitleText("Выберите время для сигнализации")
-//                    .build();
-//
-//            materialTimePicker.addOnPositiveButtonClickListener(view->{
-//                Calendar calendar = Calendar.getInstance();
-//                calendar.set(Calendar.SECOND, 0);
-//                calendar.set(Calendar.MILLISECOND, 0);
-//                calendar.set(Calendar.MINUTE, materialTimePicker.getMinute());
-//                calendar.set(Calendar.HOUR_OF_DAY, materialTimePicker.getHour());
-//            });
-//
-//            materialTimePicker.show(getSupportFragmentManager(), "myTag");
-//        });
     }
     public void OpenAlarmActivity(View v){
         PlayMusic();

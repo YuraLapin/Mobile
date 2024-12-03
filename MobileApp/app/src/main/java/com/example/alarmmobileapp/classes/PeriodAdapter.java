@@ -45,6 +45,13 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.PeriodView
         holder.start.setText(period.getStartOfPeriod());
         holder.end.setText(period.getEndOfPeriod());
 
+        holder.itemView.setOnLongClickListener(v -> {
+            if (context instanceof AlarmActivity) {
+                ((AlarmActivity) context).showDeleteConfirmationDialog(position);
+            }
+            return true;
+        });
+
         if (period.getDaysOfWeek() != null && !period.getDaysOfWeek().isEmpty()) {
             StringBuilder daysStringBuilder = new StringBuilder();
             for (DayOfWeek day : period.getDaysOfWeek()) {

@@ -44,6 +44,21 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.PeriodView
         holder.name.setText(period.getName());
         holder.start.setText(period.getStartOfPeriod());
         holder.end.setText(period.getEndOfPeriod());
+
+        if (period.getDaysOfWeek() != null && !period.getDaysOfWeek().isEmpty()) {
+            StringBuilder daysStringBuilder = new StringBuilder();
+            for (DayOfWeek day : period.getDaysOfWeek()) {
+                daysStringBuilder.append(DayOfWeek.dayToShortString(day)).append(", ");
+            }
+            if (daysStringBuilder.length() > 0) {
+                daysStringBuilder.setLength(daysStringBuilder.length() - 2);
+            }
+            holder.daysOfWeek.setText(daysStringBuilder.toString());
+        } else {
+            holder.daysOfWeek.setText("Нет выбранных дней");
+        }
+
+
         holder.enabled.setOnCheckedChangeListener(null);
         holder.enabled.setChecked(period.isEnabled());
 
@@ -64,7 +79,7 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.PeriodView
 
     public static class PeriodViewHolder extends RecyclerView.ViewHolder{
 
-        TextView name,start,end;
+        TextView name,start,end,daysOfWeek;
         SwitchCompat enabled;
 
         public PeriodViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
@@ -73,6 +88,7 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.PeriodView
             start = itemView.findViewById(R.id.start);
             end = itemView.findViewById(R.id.end);
             enabled = itemView.findViewById(R.id.enabled);
+            daysOfWeek = itemView.findViewById(R.id.daysOfWeek);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

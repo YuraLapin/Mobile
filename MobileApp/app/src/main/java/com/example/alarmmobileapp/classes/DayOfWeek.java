@@ -63,4 +63,24 @@ public enum DayOfWeek {
                 throw new IllegalArgumentException("Неизвестный день: " + day);
         }
     }
+    public static String dayToShortString(DayOfWeek day) {
+        switch (day) {
+            case MONDAY:
+                return "Пн";
+            case TUESDAY:
+                return "Вт";
+            case WEDNESDAY:
+                return "Ср";
+            case THURSDAY:
+                return "Чт";
+            case FRIDAY:
+                return "Пт";
+            case SATURDAY:
+                return "Сб";
+            case SUNDAY:
+                return "Вс";
+            default:
+                throw new IllegalArgumentException("Неизвестный день: " + day);
+        }
+    }
 }

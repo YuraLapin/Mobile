@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="160dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="1dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="19:00"
             android:textSize="20sp" />
@@ -44,8 +44,18 @@
             android:fontFamily="@font/montserrat_bold"
             android:layout_marginLeft="160dp"
             android:text="21:00"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:textSize="20sp" />
+        <TextView
+            android:id="@+id/daysOfWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="160dp"
+            android:text="Пн, Вт, Ср, Чт, Пт, Сб, Вс"
+            android:textSize="13sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="47dp"
+            android:lineSpacingExtra="2dp" />
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/enabled"

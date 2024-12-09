@@ -5,6 +5,7 @@ app = Flask(__name__)
 CRONTAB_FILE_LOCATION = "crontabs"
 GPIO_FILE_LOCATION = "gpio/gpio24"
 JSON_FILE_LOCATION = "intervals.json"
+
 days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
 
 
@@ -15,7 +16,10 @@ def init():
         f = open(JSON_FILE_LOCATION, 'r')
         raw_json = f.read()
         f.close()
-        parsed_intervals = json.loads(raw_json)
+        try:
+            parsed_intervals = json.loads(raw_json)
+        except json.decoder.JSONDecodeError:
+            parsed_intervals = []
         for interval in parsed_intervals:
             on_line = create_crontab_line(interval["day_of_week_on"], interval["hour_on"], interval["minute_on"], True)
             off_line = create_crontab_line(interval["day_of_week_off"], interval["hour_off"], interval["minute_off"], False)
@@ -35,6 +39,7 @@ def init():
 
     except FileNotFoundError:
         print(f"intervals.json not found at {JSON_FILE_LOCATION}")
+
 
 
 def create_crontab_line(day_of_week, hour, minute, on):
@@ -67,6 +72,24 @@ def add_interval():
     hour_off = request.values['hour_off']
     minute_off = request.values['minute_off']
 
+    if day_of_week_on not in days and (int(day_of_week_on) < 1 or int(day_of_week_on) > 7):
+        return "Invalid day_of_week_on", 400
+    
+    if day_of_week_off not in days and (int(day_of_week_off) < 1 or int(day_of_week_off) > 7):
+        return "Invalid day_of_week_off", 400
+    
+    if int(hour_on) > 23 or int(hour_on) < 0:
+        return "Invalid hour_on", 400
+    
+    if int(hour_off) > 23 or int(hour_off) < 0:
+        return "Invalid hour_off", 400
+    
+    if int(minute_on) > 59 or int(minute_on) < 0:
+        return "Invalid minute_on", 400
+    
+    if int(minute_off) > 59 or int(minute_off) < 0:
+        return "Invalid minute_off", 400
+
     try:
         f = open(JSON_FILE_LOCATION, 'r')
         raw_json = f.read()
@@ -74,7 +97,10 @@ def add_interval():
     except FileNotFoundError:
         raw_json = '[]'
 
-    parsed_intervals = json.loads(raw_json)
+    try:
+        parsed_intervals = json.loads(raw_json)
+    except json.decoder.JSONDecodeError:
+        parsed_intervals = []
     interval = {"day_of_week_on": day_of_week_on, "hour_on": hour_on, "minute_on": minute_on, "day_of_week_off": day_of_week_off, "hour_off": hour_off, "minute_off": minute_off}
     if interval not in parsed_intervals:
         parsed_intervals.append(interval)
@@ -118,6 +144,24 @@ def delete_interval():
     hour_off = request.values['hour_off']
     minute_off = request.values['minute_off']
 
+    if day_of_week_on not in days and (int(day_of_week_on) < 1 or int(day_of_week_on) > 7):
+        return "Invalid day_of_week_on", 400
+    
+    if day_of_week_off not in days and (int(day_of_week_off) < 1 or int(day_of_week_off) > 7):
+        return "Invalid day_of_week_off", 400
+    
+    if int(hour_on) > 23 or int(hour_on) < 0:
+        return "Invalid hour_on", 400
+    
+    if int(hour_off) > 23 or int(hour_off) < 0:
+        return "Invalid hour_off", 400
+    
+    if int(minute_on) > 59 or int(minute_on) < 0:
+        return "Invalid minute_on", 400
+    
+    if int(minute_off) > 59 or int(minute_off) < 0:
+        return "Invalid minute_off", 400
+
     try:
         f = open(JSON_FILE_LOCATION, 'r')
         raw_json = f.read()
@@ -125,7 +169,10 @@ def delete_interval():
     except FileNotFoundError:
         raw_json = '[]'
 
-    old_intervals = json.loads(raw_json)
+    try:
+        old_intervals = json.loads(raw_json)
+    except json.decoder.JSONDecodeError:
+        old_intervals = []
     new_intervals = []
     interval_to_delete = {"day_of_week_on": day_of_week_on, "hour_on": hour_on, "minute_on": minute_on, "day_of_week_off": day_of_week_off, "hour_off": hour_off, "minute_off": minute_off}
     for interval in old_intervals:
@@ -153,6 +200,7 @@ def delete_interval():
     f = open(CRONTAB_FILE_LOCATION, "r")
     stripped_file = f.read().rstrip("\n")
     f.close()
+    
     f = open(CRONTAB_FILE_LOCATION, "w")
     f.write(stripped_file)
     f.close
@@ -162,12 +210,25 @@ def delete_interval():
 
 
 
-@app.route('/check_interval', methods=["POST", "GET"])
+@app.route('/check_status', methods=["GET"])
 def check_status():
     f = open(GPIO_FILE_LOCATION, "r")
     res = f.read()
     f.close()
     return res
+
+
+
+@app.route('/get_intervals', methods=["GET"])
+def get_intervals():
+    f = open(JSON_FILE_LOCATION, 'r')
+    raw_json = f.read()
+    f.close()
+    try:
+        parsed_intervals = json.loads(raw_json)
+    except json.decoder.JSONDecodeError:
+        parsed_intervals = []
+    return parsed_intervals
 
 
 

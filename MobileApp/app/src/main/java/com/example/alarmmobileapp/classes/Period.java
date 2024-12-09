@@ -36,7 +36,6 @@ public class Period implements Serializable {
         return id;
     }
 
-
     public void setName(String name) {
         this.name = name;
     }
@@ -74,18 +73,6 @@ public class Period implements Serializable {
 
     public boolean isEnabled() {
         return enabled;
-    }
-    public List<String> getDaysToString(List<DayOfWeek> daysOfWeek) {
-        return daysOfWeek.stream()
-                .map(day -> capitalize(day.name()))
-                .collect(Collectors.toList());
-    }
-
-    public String capitalize(String day) {
-        if (day == null || day.isEmpty()) {
-            return day;
-        }
-        return day.substring(0, 1).toUpperCase() + day.substring(1).toLowerCase();
     }
 
     public int parseHour(String time) {

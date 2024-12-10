@@ -19,7 +19,7 @@ import java.util.List;
 
 public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.PeriodViewHolder> {
 
-    List<Period> periods;
+    public List<Period> periods;
     private final Context context;
     private final LayoutInflater inflater;
     private final RecyclerViewInterface recyclerViewInterface;
@@ -86,8 +86,11 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.PeriodView
 
     public static class PeriodViewHolder extends RecyclerView.ViewHolder{
 
-        TextView name,start,end,daysOfWeek;
-        SwitchCompat enabled;
+        public TextView name;
+        public TextView start;
+        public TextView end;
+        TextView daysOfWeek;
+        public SwitchCompat enabled;
 
         public PeriodViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);

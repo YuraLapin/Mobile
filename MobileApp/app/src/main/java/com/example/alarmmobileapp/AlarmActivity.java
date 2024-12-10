@@ -66,9 +66,9 @@ public class AlarmActivity extends AppCompatActivity implements RecyclerViewInte
         days.add(DayOfWeek.MONDAY);
         days.add(DayOfWeek.FRIDAY);
         Period p1 = new Period(1,"ABC","19:20","20:00", days, true);
-        Period p2 = new Period(2,"ABasdC","01:20","03:00", days, true);
+        Period p2 = new Period(2,"ABasdC","01:20","03:00", days, false);
         Period p3 = new Period(4,"sda","19:20","20:00", days, false);
-        Period p4 = new Period(5,"qwea","01:20","10:00", days, true);
+        Period p4 = new Period(5,"qwea","01:20","10:00", days, false);
         Period p5 = new Period(6,"gaq","19:20","20:00", days, false);
         periods.add(p1);
         periods.add(p2);

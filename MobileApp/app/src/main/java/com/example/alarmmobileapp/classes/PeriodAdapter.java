@@ -13,12 +13,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.alarmmobileapp.AlarmActivity;
 import com.example.alarmmobileapp.R;
+import com.example.alarmmobileapp.interfaces.IntervalApi;
 import com.example.alarmmobileapp.interfaces.RecyclerViewInterface;
 
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.PeriodViewHolder> {
 
+    private static final String BASE_URL = "http://10.0.2.2:5000";
     public List<Period> periods;
     private final Context context;
     private final LayoutInflater inflater;
@@ -75,8 +85,64 @@ public class PeriodAdapter extends RecyclerView.Adapter<PeriodAdapter.PeriodView
             String message = period.isEnabled() ? "Включен" : "Выключен";
             Toast.makeText(context, "Период " + period.getName() + " " + message, Toast.LENGTH_SHORT).show();
 
+            SendRequest(period);
         });
 
+    }
+
+
+    public static void  SendRequest(Period period)
+    {
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(httpLoggingInterceptor)
+                .build();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        IntervalApi apiService = retrofit.create(IntervalApi.class);
+
+        IntervalRequest intervalRequest = new IntervalRequest(
+                DayOfWeek.dayToInt(period.getDaysOfWeek().get(0)),
+                period.parseHour(period.getStartOfPeriod()),
+                period.parseMinute(period.getStartOfPeriod()),
+                DayOfWeek.dayToInt(period.getDaysOfWeek().get(period.getDaysOfWeek().size()-1)),
+                period.parseHour(period.getEndOfPeriod()),
+                period.parseMinute(period.getEndOfPeriod()));
+
+
+        Call<Void> call = null;
+
+        if ((period.isEnabled()))
+        {
+            call = apiService.addInterval(intervalRequest);
+        }
+        else
+        {
+            call = apiService.deleteInterval(intervalRequest);
+        }
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    System.out.println("Interval deleted successfully");
+                } else {
+                    System.out.println("Failed to delete interval: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 
     @Override
